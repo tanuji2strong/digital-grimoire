@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Digital Grimoire: a terminal-styled library of Linux CLI commands, Python scripts, and C / Assembly snippets, written as spells and artifacts.">
+  <title>The Index :: Digital Grimoire</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="terminal">
+    <div class="titlebar"><span>grimoire://index</span><span>tty1</span></div>
+
+    <main class="screen">
+      <p class="prompt"><span class="user">sorcerer@grimoire</span>:<span class="path">~</span>$ ./open-grimoire --index</p>
+
+<pre class="banner" aria-label="Grimoire"> ██████╗ ██████╗ ██╗███╗   ███╗ ██████╗ ██╗██████╗ ███████╗
+██╔════╝ ██╔══██╗██║████╗ ████║██╔═══██╗██║██╔══██╗██╔════╝
+██║  ███╗██████╔╝██║██╔████╔██║██║   ██║██║██████╔╝█████╗
+██║   ██║██╔══██╗██║██║╚██╔╝██║██║   ██║██║██╔══██╗██╔══╝
+╚██████╔╝██║  ██║██║██║ ╚═╝ ██║╚██████╔╝██║██║  ██║███████╗
+ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝</pre>
+
+      <ul class="boot-log" aria-label="Boot sequence">
+        <li>[<span class="ok"> OK </span>] Mounting /spells ............ bash, python</li>
+        <li>[<span class="ok"> OK </span>] Mounting /artifacts ......... c, asm</li>
+        <li>[<span class="ok"> OK </span>] Loading wards (style.css) ... done</li>
+        <li>[<span class="ok"> OK </span>] Grimoire ready. Welcome, sorcerer.</li>
+      </ul>
+
+      <section class="panel" aria-labelledby="welcome-heading">
+        <h1 id="welcome-heading">Welcome to the Digital Grimoire</h1>
+        <p>This tome records working code as spells. Shell commands and Python scripts are <strong>spells</strong>: short words that bend the system to your will. C and Assembly programs are <strong>artifacts</strong>: heavier objects, forged by a compiler, that work closer to the metal.</p>
+        <p>Every page follows the same shape: the <strong>Spell Name</strong>, its <strong>Mana Cost</strong> and <strong>Risk</strong>, the <strong>Incantation</strong> (the code), the <strong>Invocation</strong> (how to run it), and the <strong>Effect</strong> (what it really does, in plain words first). The lore is decoration. The code is real.</p>
+        <p>Choose a school below and begin reading.<span class="cursor" aria-hidden="true"></span></p>
+      </section>
+
+      <section class="panel" aria-labelledby="legend-heading">
+        <h2 id="legend-heading">Reading the Runes</h2>
+        <dl class="legend">
+          <dt><span class="mana">■□□□□</span> 1</dt><dd>Cantrip. A single command.</dd>
+          <dt><span class="mana">■■□□□</span> 2</dt><dd>Minor. Flags, pipes, or a tiny script.</dd>
+          <dt><span class="mana">■■■□□</span> 3</dt><dd>Ritual. Control flow, error handling, OS calls.</dd>
+          <dt><span class="mana">■■■■□</span> 4</dt><dd>Greater. Concurrency, memory, protocols.</dd>
+          <dt><span class="mana">■■■■■</span> 5</dt><dd>Archmage. Assembly and syscall-level work.</dd>
+          <dt><span class="risk risk-safe">SAFE</span></dt><dd>Read-only. Leaves no mark.</dd>
+          <dt><span class="risk risk-volatile">VOLATILE</span></dt><dd>Changes files or opens ports. Reversible.</dd>
+          <dt><span class="risk risk-forbidden">FORBIDDEN</span></dt><dd>Needs root or can destroy data. Cast with care.</dd>
+        </dl>
+      </section>
+
+      <p class="prompt"><span class="user">sorcerer@grimoire</span>:<span class="path">~</span>$ tree --schools</p>
+
+      <!-- ===================== SPELLS / BASH ===================== -->
+      <section class="school" id="school-bash" aria-labelledby="h-bash">
+        <div class="school-header">
+          <h2 id="h-bash">~/spells/bash</h2>
+          <span class="count">[1 transcribed / 2 sealed]</span>
+        </div>
+        <p class="school-desc">School of the Shell. Linux CLI commands, pipelines, and Bash scripts.</p>
+        <div class="table-wrap">
+          <table class="spell-table">
+            <thead>
+              <tr><th scope="col">Mana</th><th scope="col">Risk</th><th scope="col">Spell</th><th scope="col">File</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-mana"><span class="mana" aria-label="Mana cost 2 of 5">■■□□□</span></td>
+                <td class="col-risk"><span class="risk risk-safe">SAFE</span></td>
+                <td class="col-name"><a href="spells/bash/directory-traversal-hex.html">Directory Traversal Hex</a></td>
+                <td class="col-file">directory-traversal-hex.html</td>
+              </tr>
+              <tr class="sealed">
+                <td class="col-mana"><span class="mana">?????</span></td>
+                <td class="col-risk">?</td>
+                <td class="col-name">Log Scrying Lens</td>
+                <td class="col-file">--</td>
+              </tr>
+              <tr class="sealed">
+                <td class="col-mana"><span class="mana">?????</span></td>
+                <td class="col-risk">?</td>
+                <td class="col-name">Process Banishment Rite</td>
+                <td class="col-file">--</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== SPELLS / PYTHON ===================== -->
+      <section class="school" id="school-python" aria-labelledby="h-python">
+        <div class="school-header">
+          <h2 id="h-python">~/spells/python</h2>
+          <span class="count">[0 transcribed / 2 sealed]</span>
+        </div>
+        <p class="school-desc">School of the Serpent. Python automation scripts.</p>
+        <div class="table-wrap">
+          <table class="spell-table">
+            <thead>
+              <tr><th scope="col">Mana</th><th scope="col">Risk</th><th scope="col">Spell</th><th scope="col">File</th></tr>
+            </thead>
+            <tbody>
+              <tr class="sealed">
+                <td class="col-mana"><span class="mana">?????</span></td>
+                <td class="col-risk">?</td>
+                <td class="col-name">Bulk Rename Familiar</td>
+                <td class="col-file">--</td>
+              </tr>
+              <tr class="sealed">
+                <td class="col-mana"><span class="mana">?????</span></td>
+                <td class="col-risk">?</td>
+                <td class="col-name">File Watcher Ward</td>
+                <td class="col-file">--</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== ARTIFACTS / C ===================== -->
+      <section class="school" id="school-c" aria-labelledby="h-c">
+        <div class="school-header">
+          <h2 id="h-c">~/artifacts/c</h2>
+          <span class="count">[1 transcribed / 1 sealed]</span>
+        </div>
+        <p class="school-desc">School of the Forge. Compiled C programs and system calls.</p>
+        <div class="table-wrap">
+          <table class="spell-table">
+            <thead>
+              <tr><th scope="col">Mana</th><th scope="col">Risk</th><th scope="col">Spell</th><th scope="col">File</th></tr>
+            </thead>
+            <tbody>
+              <tr class="sealed">
+                <td class="col-mana"><span class="mana">?????</span></td>
+                <td class="col-risk">?</td>
+                <td class="col-name">Memory Allocation Circle</td>
+                <td class="col-file">--</td>
+              </tr>
+              <tr>
+                <td class="col-mana"><span class="mana" aria-label="Mana cost 3 of 5">■■■□□</span></td>
+                <td class="col-risk"><span class="risk risk-volatile">VOLATILE</span></td>
+                <td class="col-name"><a href="artifacts/c/socket-binding-ritual.html">Socket Binding Ritual</a></td>
+                <td class="col-file">socket-binding-ritual.html</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== ARTIFACTS / ASM ===================== -->
+      <section class="school" id="school-asm" aria-labelledby="h-asm">
+        <div class="school-header">
+          <h2 id="h-asm">~/artifacts/asm</h2>
+          <span class="count">[0 transcribed / 1 sealed]</span>
+        </div>
+        <p class="school-desc">School of the Metal. Assembly, registers, and raw syscalls.</p>
+        <div class="table-wrap">
+          <table class="spell-table">
+            <thead>
+              <tr><th scope="col">Mana</th><th scope="col">Risk</th><th scope="col">Spell</th><th scope="col">File</th></tr>
+            </thead>
+            <tbody>
+              <tr class="sealed">
+                <td class="col-mana"><span class="mana">?????</span></td>
+                <td class="col-risk">?</td>
+                <td class="col-name">Syscall Write Whisper</td>
+                <td class="col-file">--</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="prompt"><span class="user">sorcerer@grimoire</span>:<span class="path">~</span>$ <span class="cursor" aria-hidden="true"></span></p>
+    </main>
+
+    <footer class="site-footer">
+      <span>2 entries transcribed</span>
+      <span>Rules of the tome: AGENTS.md</span>
+    </footer>
+  </div>
+</body>
+</html>

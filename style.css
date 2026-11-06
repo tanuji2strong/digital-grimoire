@@ -1,0 +1,224 @@
+/* ==========================================================================
+   DIGITAL GRIMOIRE :: style.css
+   The ONLY stylesheet for the whole site. Every page links to it.
+   Rules for editing this file live in AGENTS.md (section 3).
+   ========================================================================== */
+
+/* ---------- 1. Design tokens (the only colors/sizes allowed) ------------- */
+:root {
+  --void:        #000000;  /* page background, pitch black            */
+  --panel:       #050805;  /* code block and table background          */
+  --phosphor:    #33ff66;  /* primary text, borders, links              */
+  --phosphor-dim:#1f9e3f;  /* secondary text, paths, comments           */
+  --amber:       #ffb000;  /* metadata labels, mana, warnings           */
+  --blood:       #ff3b3b;  /* FORBIDDEN risk level only                 */
+  --glow:        0 0 6px rgba(51, 255, 102, 0.55);
+
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace,
+               "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --border: 2px solid var(--phosphor);
+  --border-dashed: 1px dashed var(--phosphor-dim);
+  --gap: 1.5rem;
+  --max-width: 60rem;
+}
+
+/* ---------- 2. Base ------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-radius: 0 !important; /* brutalist: no rounded corners, ever */
+}
+
+html { background: var(--void); }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--void);
+  color: var(--phosphor);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.6;
+  text-shadow: var(--glow);
+}
+
+/* CRT scanlines, purely decorative */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.25) 3px
+  );
+  z-index: 10;
+}
+
+::selection { background: var(--phosphor); color: var(--void); text-shadow: none; }
+
+a { color: var(--phosphor); text-decoration: underline; text-underline-offset: 3px; }
+a:hover,
+a:focus-visible { background: var(--phosphor); color: var(--void); text-shadow: none; outline: none; }
+
+h1, h2, h3 { font-weight: 700; line-height: 1.25; margin: 0 0 0.75rem; }
+h1 { font-size: 1.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+h2 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.06em; }
+h2::before { content: "## "; color: var(--phosphor-dim); }
+p { margin: 0 0 1rem; }
+
+/* ---------- 3. Terminal frame ------------------------------------------- */
+.terminal {
+  max-width: var(--max-width);
+  margin: var(--gap) auto;
+  border: var(--border);
+  background: var(--void);
+}
+
+.titlebar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0.75rem;
+  background: var(--phosphor);
+  color: var(--void);
+  text-shadow: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.screen { padding: var(--gap); }
+
+.prompt { color: var(--phosphor-dim); margin-bottom: 1rem; overflow-wrap: anywhere; }
+.prompt .user { color: var(--phosphor); }
+.prompt .path { color: var(--amber); }
+
+.back-link { display: inline-block; margin-bottom: var(--gap); }
+
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  vertical-align: text-bottom;
+  background: var(--phosphor);
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- 4. Index page ------------------------------------------------ */
+.banner {
+  margin: 0 0 var(--gap);
+  overflow-x: auto;
+  font-size: clamp(0.4rem, 1.6vw, 0.95rem);
+  line-height: 1.1;
+}
+
+.boot-log { margin: 0 0 var(--gap); padding: 0; list-style: none; color: var(--phosphor-dim); }
+.boot-log .ok { color: var(--phosphor); }
+
+.panel {
+  border: var(--border);
+  padding: 1rem 1.25rem;
+  margin-bottom: var(--gap);
+}
+
+.legend { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1.25rem; margin: 0; }
+.legend dt { color: var(--amber); }
+.legend dd { margin: 0; }
+
+.school { margin-bottom: calc(var(--gap) * 1.5); }
+.school-header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.school-desc { color: var(--phosphor-dim); }
+.count { color: var(--amber); }
+
+.table-wrap { overflow-x: auto; border: var(--border); }
+
+.spell-table { width: 100%; min-width: 44rem; table-layout: fixed; border-collapse: collapse; background: var(--panel); font-size: 0.9rem; }
+.spell-table th:nth-child(1) { width: 7.5rem; }
+.spell-table th:nth-child(2) { width: 8.5rem; }
+.spell-table th:nth-child(4) { width: 17rem; }
+.spell-table td { overflow: hidden; text-overflow: ellipsis; }
+.spell-table th,
+.spell-table td { padding: 0.5rem 0.75rem; text-align: left; white-space: nowrap; border-bottom: var(--border-dashed); }
+.spell-table th { color: var(--void); background: var(--phosphor); text-shadow: none; text-transform: uppercase; font-size: 0.8rem; }
+.spell-table tr:last-child td { border-bottom: none; }
+.spell-table .col-file { color: var(--phosphor-dim); }
+.spell-table tr.sealed { opacity: 0.45; }
+.spell-table tr.sealed .col-name::after { content: " [SEALED]"; color: var(--amber); }
+
+/* ---------- 5. Entry (spell / artifact) page ---------------------------- */
+.entry .spell-name { border-bottom: var(--border); padding-bottom: 0.5rem; margin-bottom: var(--gap); }
+
+.meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1.5rem;
+  border: var(--border-dashed);
+  padding: 0.75rem 1rem;
+  margin: 0 0 var(--gap);
+}
+.meta dt { color: var(--amber); text-transform: uppercase; }
+.meta dt::after { content: ":"; }
+.meta dd { margin: 0; }
+
+.entry section { margin-bottom: var(--gap); }
+
+pre.code {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  background: var(--panel);
+  border: var(--border);
+  border-left-width: 6px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  tab-size: 4;
+}
+pre.code code { font-family: inherit; }
+
+/* Small inline code (commands inside prose) */
+p code, li code { color: var(--amber); }
+p code::before, li code::before,
+p code::after,  li code::after { content: "`"; color: var(--phosphor-dim); }
+
+.side-effects { border: 2px solid var(--amber); padding: 1rem 1.25rem; }
+.side-effects h2 { color: var(--amber); }
+.side-effects ul { margin: 0; padding-left: 1.25rem; }
+
+/* ---------- 6. Shared badges ------------------------------------------- */
+.mana { color: var(--amber); letter-spacing: 0.1em; }
+
+.risk { display: inline-block; padding: 0 0.4rem; font-weight: 700; text-shadow: none; }
+.risk-safe      { color: var(--void); background: var(--phosphor); }
+.risk-volatile  { color: var(--void); background: var(--amber); }
+.risk-forbidden { color: var(--void); background: var(--blood); }
+
+/* ---------- 7. Footer --------------------------------------------------- */
+.site-footer {
+  border-top: var(--border);
+  padding: 0.75rem var(--gap);
+  color: var(--phosphor-dim);
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- 8. Accessibility and small screens -------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; }
+}
+
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .terminal { margin: 0; border-left: none; border-right: none; }
+  .screen { padding: 1rem; }
+  h1 { font-size: 1.35rem; }
+  .meta, .legend { grid-template-columns: 1fr; }
+  .meta dd, .legend dd { margin-bottom: 0.5rem; }
+}

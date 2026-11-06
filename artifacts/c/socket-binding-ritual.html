@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A minimal C TCP server: socket, bind, listen, accept, send one message, close.">
+  <title>Socket Binding Ritual :: Digital Grimoire</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="terminal">
+    <div class="titlebar"><span>grimoire://artifacts/c</span><span>socket-binding-ritual.html</span></div>
+
+    <main class="screen">
+      <p class="prompt"><span class="user">sorcerer@grimoire</span>:<span class="path">~/artifacts/c</span>$ cat socket-binding-ritual.html</p>
+      <a class="back-link" href="../../index.html">&lt; cd ../../ (return to index)</a>
+
+      <article class="entry" data-school="c" data-mana="3" data-risk="volatile">
+        <h1 class="spell-name">Socket Binding Ritual</h1>
+
+        <dl class="meta">
+          <dt>School</dt><dd>C</dd>
+          <dt>Type</dt><dd>Artifact</dd>
+          <dt>Mana Cost</dt><dd><span class="mana" aria-label="Mana cost 3 of 5">■■■□□</span> 3/5</dd>
+          <dt>Risk</dt><dd><span class="risk risk-volatile">VOLATILE</span></dd>
+          <dt>Components</dt><dd>gcc, POSIX sockets (Linux / macOS / WSL), nc for testing</dd>
+          <dt>Inscribed</dt><dd><time datetime="2026-11-06">2026-11-06</time></dd>
+        </dl>
+
+        <section class="incantation">
+          <h2>Incantation</h2>
+          <pre class="code"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;sys/socket.h&gt;
+
+#define PORT 8080
+
+int main(void) {
+    /* Create a TCP socket (IPv4, stream). */
+    int server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_fd &lt; 0) {
+        perror("socket");
+        return EXIT_FAILURE;
+    }
+
+    /* Allow quick restarts without "Address already in use". */
+    int opt = 1;
+    setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &amp;opt, sizeof opt);
+
+    /* Bind to every local interface on PORT. */
+    struct sockaddr_in addr;
+    memset(&amp;addr, 0, sizeof addr);
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    addr.sin_port = htons(PORT);
+
+    if (bind(server_fd, (struct sockaddr *)&amp;addr, sizeof addr) &lt; 0) {
+        perror("bind");
+        close(server_fd);
+        return EXIT_FAILURE;
+    }
+
+    if (listen(server_fd, 1) &lt; 0) {
+        perror("listen");
+        close(server_fd);
+        return EXIT_FAILURE;
+    }
+
+    printf("Circle drawn. Listening on port %d...\n", PORT);
+    fflush(stdout);
+
+    /* Block until one client connects, greet it, then close. */
+    int client_fd = accept(server_fd, NULL, NULL);
+    if (client_fd &lt; 0) {
+        perror("accept");
+        close(server_fd);
+        return EXIT_FAILURE;
+    }
+
+    const char *msg = "The ritual is complete.\n";
+    send(client_fd, msg, strlen(msg), 0);
+
+    close(client_fd);
+    close(server_fd);
+    return EXIT_SUCCESS;
+}</code></pre>
+        </section>
+
+        <section class="invocation">
+          <h2>Invocation</h2>
+          <pre class="code"><code class="language-bash"># Terminal 1: forge and cast the artifact
+gcc -Wall -Wextra -o ritual socket-binding-ritual.c
+./ritual
+Circle drawn. Listening on port 8080...
+
+# Terminal 2: answer the summons
+nc localhost 8080
+The ritual is complete.</code></pre>
+        </section>
+
+        <section class="effect">
+          <h2>Effect</h2>
+          <p><strong>In plain terms:</strong> Starts a TCP server on port 8080, waits for one client to connect, sends it one line of text, and exits.</p>
+          <p>The forge-mage draws a circle on port 8080 and waits in silence. The first soul to step inside receives a single message, and the circle closes behind them.</p>
+          <p><code>socket()</code> creates an IPv4 TCP endpoint. <code>SO_REUSEADDR</code> lets you restart the program right away without the "Address already in use" backfire. <code>bind()</code> attaches the socket to every local interface (<code>INADDR_ANY</code>) on port 8080, using <code>htons()</code> and <code>htonl()</code> to convert numbers to network byte order. <code>listen()</code> marks it as a server, <code>accept()</code> blocks until a client arrives, and <code>send()</code> writes the message before both sockets are closed.</p>
+        </section>
+
+        <section class="side-effects">
+          <h2>Side Effects</h2>
+          <ul>
+            <li>Opens port 8080 on <strong>all</strong> network interfaces while it runs. Other machines on your network can connect. Change <code>INADDR_ANY</code> to <code>htonl(INADDR_LOOPBACK)</code> to allow local connections only.</li>
+            <li>Backfires with <code>bind: Address already in use</code> if another program already holds port 8080.</li>
+            <li>Serves exactly one client, then exits. Wrap <code>accept()</code> in a loop for a server that keeps running.</li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <span>EOF :: socket-binding-ritual.html</span>
+      <span>Digital Grimoire</span>
+    </footer>
+  </div>
+</body>
+</html>

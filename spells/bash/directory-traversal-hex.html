@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Use find to list .log files older than 7 days and larger than 1 MB, recursively.">
+  <title>Directory Traversal Hex :: Digital Grimoire</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="terminal">
+    <div class="titlebar"><span>grimoire://spells/bash</span><span>directory-traversal-hex.html</span></div>
+
+    <main class="screen">
+      <p class="prompt"><span class="user">sorcerer@grimoire</span>:<span class="path">~/spells/bash</span>$ cat directory-traversal-hex.html</p>
+      <a class="back-link" href="../../index.html">&lt; cd ../../ (return to index)</a>
+
+      <article class="entry" data-school="bash" data-mana="2" data-risk="safe">
+        <h1 class="spell-name">Directory Traversal Hex</h1>
+
+        <dl class="meta">
+          <dt>School</dt><dd>Bash</dd>
+          <dt>Type</dt><dd>Spell</dd>
+          <dt>Mana Cost</dt><dd><span class="mana" aria-label="Mana cost 2 of 5">■■□□□</span> 2/5</dd>
+          <dt>Risk</dt><dd><span class="risk risk-safe">SAFE</span></dd>
+          <dt>Components</dt><dd>find, ls (GNU coreutils / findutils)</dd>
+          <dt>Inscribed</dt><dd><time datetime="2026-11-06">2026-11-06</time></dd>
+        </dl>
+
+        <section class="incantation">
+          <h2>Incantation</h2>
+          <pre class="code"><code class="language-bash">find /var/log -type f -name "*.log" -mtime +7 -size +1M -exec ls -lh {} \;</code></pre>
+        </section>
+
+        <section class="invocation">
+          <h2>Invocation</h2>
+          <pre class="code"><code class="language-bash"># Cast on your own folder (no sudo needed)
+find ~/projects -type f -name "*.log" -mtime +7 -size +1M -exec ls -lh {} \;
+
+# Sample effect
+-rw-r--r-- 1 sorcerer sorcerer 2.0M Oct 27 15:52 /home/sorcerer/projects/app/old.log
+-rw-r--r-- 1 sorcerer sorcerer 4.3M Oct 20 09:11 /home/sorcerer/projects/api/logs/old2.log</code></pre>
+        </section>
+
+        <section class="effect">
+          <h2>Effect</h2>
+          <p><strong>In plain terms:</strong> Searches a folder and all its subfolders for <code>.log</code> files that are older than 7 days and bigger than 1 MB, then prints their size and date.</p>
+          <p>The hex walks every corridor of the directory tree and marks the stale scrolls that weigh down the archive. It only points at them. It does not burn them.</p>
+          <p><code>find /var/log</code> starts the walk at that folder and goes down every level. <code>-type f</code> keeps only regular files, <code>-name "*.log"</code> matches the extension (the quotes stop the shell from expanding the <code>*</code> too early), <code>-mtime +7</code> means last modified more than 7 days ago, and <code>-size +1M</code> means larger than 1 MB. <code>-exec ls -lh {} \;</code> runs <code>ls -lh</code> on each match, where <code>{}</code> is the file path.</p>
+        </section>
+
+        <section class="side-effects">
+          <h2>Side Effects</h2>
+          <ul>
+            <li>Reading <code>/var/log</code> may print <code>Permission denied</code> for some files without root. Add <code>2&gt;/dev/null</code> to hide those lines, or point the hex at your own folder.</li>
+            <li>Swapping <code>-exec ls -lh {} \;</code> for <code>-delete</code> turns this SAFE spell into a FORBIDDEN one that permanently removes the files. Run the read-only version first.</li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <span>EOF :: directory-traversal-hex.html</span>
+      <span>Digital Grimoire</span>
+    </footer>
+  </div>
+</body>
+</html>
